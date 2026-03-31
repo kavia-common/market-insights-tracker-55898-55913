@@ -1,14 +1,18 @@
+import Link from "next/link";
 import React from "react";
+import { AppShell } from "@/components/AppShell";
 
 export default function NotFound() {
   return (
-    <main className="app-container">
-      <section className="card" role="alert" aria-live="assertive">
-        <header className="header">
-          <h1 className="title">404 – Page Not Found</h1>
-          <p className="subtitle">The page you’re looking for doesn’t exist.</p>
-        </header>
+    <AppShell title="Not found" subtitle="The page you’re looking for doesn’t exist.">
+      <section className="mi-card" role="alert" aria-live="assertive">
+        <div className="mi-title">404 – Page Not Found</div>
+        <p className="mi-subtitle">Check the URL or return to the overview.</p>
+        <div className="mi-divider" style={{ marginTop: 12, marginBottom: 12 }} />
+        <Link className="mi-btn mi-btn-primary" href="/">
+          Back to overview
+        </Link>
       </section>
-    </main>
+    </AppShell>
   );
 }

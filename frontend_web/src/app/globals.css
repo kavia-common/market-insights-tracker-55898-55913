@@ -1,10 +1,20 @@
 @import "tailwindcss";
 
 :root {
-  --color-primary: #000000;
-  --color-secondary: #FFFFFF;
-  --color-accent: #3B82F6;
-  --color-background: #FFFFFF;
+  /* Style guide: light, modern; accents #3b82f6 (primary) & #06b6d4 (success/secondary accent) */
+  --mi-primary: #3b82f6;
+  --mi-secondary: #64748b;
+  --mi-success: #06b6d4;
+  --mi-error: #ef4444;
+
+  --mi-bg: #f9fafb;
+  --mi-surface: #ffffff;
+  --mi-text: #111827;
+  --mi-muted: #6b7280;
+  --mi-border: #e5e7eb;
+
+  --mi-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
+  --mi-radius: 14px;
 }
 
 * {
@@ -17,10 +27,316 @@ html,
 body {
   max-width: 100vw;
   overflow-x: hidden;
-  background-color: var(--color-background);
-  color: var(--color-primary);
+  background: var(--mi-bg);
+  color: var(--mi-text);
 }
 
 body {
-  font-family: system-ui, -apple-system, sans-serif;
+  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica,
+    Arial, "Apple Color Emoji", "Segoe UI Emoji";
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* Layout primitives */
+.mi-page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.mi-header {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  background: rgba(249, 250, 251, 0.85);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--mi-border);
+}
+
+.mi-header-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.mi-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 650;
+}
+
+.mi-pill {
+  font-size: 12px;
+  padding: 2px 8px;
+  border: 1px solid var(--mi-border);
+  border-radius: 999px;
+  color: var(--mi-muted);
+  background: var(--mi-surface);
+}
+
+.mi-shell {
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 16px;
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 16px;
+  align-items: start;
+}
+
+@media (max-width: 900px) {
+  .mi-shell {
+    grid-template-columns: 1fr;
+  }
+}
+
+.mi-sidebar {
+  position: sticky;
+  top: 64px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+@media (max-width: 900px) {
+  .mi-sidebar {
+    position: static;
+  }
+}
+
+.mi-main {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* Surface / card */
+.mi-card {
+  background: var(--mi-surface);
+  border: 1px solid var(--mi-border);
+  border-radius: var(--mi-radius);
+  box-shadow: var(--mi-shadow);
+  padding: 14px;
+}
+
+.mi-card-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
+.mi-title {
+  font-size: 18px;
+  font-weight: 650;
+}
+
+.mi-subtitle {
+  font-size: 13px;
+  color: var(--mi-muted);
+  margin-top: 2px;
+}
+
+.mi-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.mi-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.mi-divider {
+  height: 1px;
+  background: var(--mi-border);
+  width: 100%;
+}
+
+/* Buttons/inputs */
+.mi-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border-radius: 12px;
+  border: 1px solid var(--mi-border);
+  padding: 10px 12px;
+  background: var(--mi-surface);
+  color: var(--mi-text);
+  cursor: pointer;
+  transition: transform 0.04s ease, background 0.12s ease, border 0.12s ease;
+  font-weight: 550;
+}
+
+.mi-btn:active {
+  transform: translateY(1px);
+}
+
+.mi-btn-primary {
+  background: var(--mi-primary);
+  color: white;
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
+.mi-btn-danger {
+  background: var(--mi-error);
+  color: white;
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
+.mi-btn-ghost {
+  background: transparent;
+}
+
+.mi-input {
+  width: 100%;
+  border-radius: 12px;
+  border: 1px solid var(--mi-border);
+  padding: 10px 12px;
+  background: var(--mi-surface);
+  color: var(--mi-text);
+  outline: none;
+}
+
+.mi-input:focus {
+  border-color: color-mix(in oklab, var(--mi-primary) 60%, var(--mi-border));
+  box-shadow: 0 0 0 4px color-mix(in oklab, var(--mi-primary) 20%, transparent);
+}
+
+.mi-help {
+  font-size: 12px;
+  color: var(--mi-muted);
+}
+
+/* Badges */
+.mi-badge {
+  font-size: 12px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  border: 1px solid var(--mi-border);
+  background: color-mix(in oklab, var(--mi-primary) 8%, var(--mi-surface));
+  color: color-mix(in oklab, var(--mi-primary) 70%, var(--mi-text));
+}
+
+.mi-badge-success {
+  background: color-mix(in oklab, var(--mi-success) 10%, var(--mi-surface));
+  color: color-mix(in oklab, var(--mi-success) 70%, var(--mi-text));
+}
+
+.mi-badge-muted {
+  background: color-mix(in oklab, var(--mi-secondary) 8%, var(--mi-surface));
+  color: color-mix(in oklab, var(--mi-secondary) 80%, var(--mi-text));
+}
+
+/* Tables/lists */
+.mi-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.mi-list-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 10px;
+  border: 1px solid var(--mi-border);
+  border-radius: 12px;
+  background: var(--mi-surface);
+}
+
+.mi-mono {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+    "Liberation Mono", "Courier New", monospace;
+  font-size: 12px;
+}
+
+.mi-kpi {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+}
+
+@media (max-width: 700px) {
+  .mi-kpi {
+    grid-template-columns: 1fr;
+  }
+}
+
+.mi-kpi-tile {
+  border: 1px solid var(--mi-border);
+  border-radius: 14px;
+  padding: 12px;
+  background: linear-gradient(
+    180deg,
+    color-mix(in oklab, var(--mi-primary) 10%, var(--mi-surface)),
+    var(--mi-surface)
+  );
+}
+
+.mi-kpi-label {
+  font-size: 12px;
+  color: var(--mi-muted);
+}
+
+.mi-kpi-value {
+  font-size: 18px;
+  font-weight: 700;
+  margin-top: 6px;
+}
+
+/* States */
+.mi-state {
+  border: 1px dashed var(--mi-border);
+  border-radius: 14px;
+  padding: 14px;
+  background: color-mix(in oklab, var(--mi-secondary) 5%, var(--mi-surface));
+  color: var(--mi-muted);
+}
+
+.mi-error {
+  border-color: color-mix(in oklab, var(--mi-error) 40%, var(--mi-border));
+  background: color-mix(in oklab, var(--mi-error) 6%, var(--mi-surface));
+  color: color-mix(in oklab, var(--mi-error) 70%, var(--mi-text));
+}
+
+.mi-loading {
+  position: relative;
+  overflow: hidden;
+}
+
+.mi-loading::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(59, 130, 246, 0.12),
+    transparent
+  );
+  transform: translateX(-100%);
+  animation: mi-shimmer 1.1s infinite;
+}
+
+@keyframes mi-shimmer {
+  to {
+    transform: translateX(100%);
+  }
 }
